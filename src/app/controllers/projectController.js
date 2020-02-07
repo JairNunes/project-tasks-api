@@ -1,23 +1,21 @@
 const projects = [];
 
 class ProjectController {
-
   index(req, res) {
-    console.log(this)
     return res.json(projects);
   }
 
   store(req, res) {
     const project = req.body;
-    projects.push(project)
+    projects.push(project);
     return res.json(project);
   }
 
   update(req, res) {
-    const id= req.params.id;
-    const {title} = req.body;
-    let project = projects.find(p => p.id === id);
-    if(!project){
+    const { id } = req.params;
+    const { title } = req.body;
+    const project = projects.find(p => p.id === id);
+    if (!project) {
       return res.status(404).json('projeto não encontrado');
     }
 
@@ -30,9 +28,9 @@ class ProjectController {
   }
 
   delete(req, res) {
-    const  id = req.params.id;
-    let project = projects.find(p => p.id === id);
-    if(!project){
+    const { id } = req.params;
+    const project = projects.find(p => p.id === id);
+    if (!project) {
       return res.status(404).json('projeto não encontrado');
     }
     const index = projects.indexOf(project);
@@ -43,15 +41,14 @@ class ProjectController {
   }
 
   addTask(req, res) {
-    const  id = req.params.id;
+    const { id } = req.params;
     const tasks = req.body;
-    let project = projects.find(p => p.id === id);
-    if(!project){
+    const project = projects.find(p => p.id === id);
+    if (!project) {
       return res.status(404).json('projeto não encontrado');
     }
 
     project.tasks.push(tasks);
-   
 
     return res.json(project);
   }
